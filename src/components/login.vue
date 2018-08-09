@@ -1,8 +1,5 @@
 <template>
     <div class="loginContainer">
-        <div class="loginBgimg">
-            <img src="../assets/loginBg.jpg" alt="" style="height:100%;">
-        </div>
         <form class="loginFrame">
             <p class="control has-icon">
                 <input class="input" type="email" placeholder="Email">
@@ -33,17 +30,16 @@
     padding: 0;
 }
 .loginContainer{
-    position: relative;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.loginBgimg{
-    filter: blur(4px);
-    min-height: 1000px;
+    background: url(../assets/loginBg.jpg) no-repeat;
+    background-size:100% 100%;
+    position:absolute;
 }
 .loginFrame{
-    position: absolute;
     width: 300px;
     height: 200px;
     display: flex;
