@@ -1,7 +1,7 @@
 <template>
     <div class="loginContainer">
         <div class="loginBgimg">
-            <img src="../assets/loginBg.jpg" alt="">
+            <img src="../assets/loginBg.jpg" alt="" style="height:100%;">
         </div>
         <form class="loginFrame">
             <p class="control has-icon">
@@ -40,6 +40,7 @@
 }
 .loginBgimg{
     filter: blur(4px);
+    min-height: 1000px;
 }
 .loginFrame{
     position: absolute;
