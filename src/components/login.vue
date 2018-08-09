@@ -4,14 +4,23 @@
             <img src="../assets/loginBg.jpg" alt="">
         </div>
         <form class="loginFrame">
-            <div class="account">
-                <el-input v-model="input" placeholder="请输入账号" style="margin:10px 0;"></el-input>
-                <el-input v-model="input" placeholder="请输入密码" style="margin:10px 0;"></el-input>
-                <el-checkbox v-model="checked" style="margin:10px 0;">Remember me</el-checkbox>
-            </div>
-            <div class="btn">
-                <el-button type="primary">走你</el-button>
-            </div>
+            <p class="control has-icon">
+                <input class="input" type="email" placeholder="Email">
+                <i class="fa fa-envelope"></i>
+            </p>
+            <p class="control has-icon">
+                <input class="input" type="password" placeholder="Password">
+                <i class="fa fa-lock"></i>
+            </p>
+            <label>
+                <input type="checkbox">
+                Remember me
+            </label>
+            <p class="control">
+                <button class="button is-success">
+                    Login
+                </button>
+            </p>
         </form>
     </div>
 </template>
@@ -32,18 +41,6 @@
 }
 .loginFrame{
     border: 1px solid red;
-    height: 200px;
-    width: 300px;
     position: absolute;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.loginFrame > .account{
-    border: 1px solid red;
-    display: flex;
-    flex-direction: column;
 }
 </style>
