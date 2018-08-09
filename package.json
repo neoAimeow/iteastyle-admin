@@ -7,8 +7,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "element-ui": "^2.4.5",
     "vue": "^2.5.17",
+    "vue-blu": "^0.1.9",
+    "vue-moment": "^4.0.0",
     "vue-router": "^3.0.1",
+    "vue-silentbox": "^0.1.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
