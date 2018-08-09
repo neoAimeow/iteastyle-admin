@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  web:
+    image: nginx
+    container_name: iteastyle-admin-test
+    restart: always
+    volumes:
+     - /root/service/iteastyle-admin-test:/usr/share/nginx/html:ro
+    expose:
+     - "443"
+    environment:
+      VIRTUAL_HOST: admin-test.iteastyle.cn
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_HOST: admin-test.iteastyle.cn
+      LETSENCRYPT_EMAIL: a18814888787@gmail.com
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
