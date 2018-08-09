@@ -5,11 +5,12 @@
         </div>
         <form class="loginFrame">
             <div class="account">
-                <input type="text" value="账号" style="display:block;width:200px;height:50px;">
-                <input type="password" value="密码" style="display:block;width:200px;height:50px;">
+                <el-input v-model="input" placeholder="请输入账号" style="margin:10px 0;"></el-input>
+                <el-input v-model="input" placeholder="请输入密码" style="margin:10px 0;"></el-input>
+                <el-checkbox v-model="checked" style="margin:10px 0;">Remember me</el-checkbox>
             </div>
             <div class="btn">
-                <input type="button" value="提交">
+                <el-button type="primary">走你</el-button>
             </div>
         </form>
     </div>
