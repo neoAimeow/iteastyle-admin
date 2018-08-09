@@ -38,6 +38,18 @@
     background: url(../assets/loginBg.jpg) no-repeat;
     background-size:100% 100%;
     position:absolute;
+    z-index: 1;
+}
+.loginContainer::after{
+    content: "";
+    width:100%;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    background: inherit;
+    filter: blur(5px);
+    z-index: 2;
 }
 .loginFrame{
     width: 300px;
@@ -49,5 +61,6 @@
     border-radius: 5px;
     box-shadow: 3px 3px 5px 2px rgba(173,170,173,0.75);
     padding: 10px;
+    z-index: 3;
 }
 </style>
