@@ -37,7 +37,7 @@ pipeline {
               sh 'sshpass -p $PASSWORD ssh -v -o StrictHostKeyChecking=no $USERNAME@118.178.131.105 docker-compose -f /root/service/iteastyle-admin-test/docker-compose.yml stop '
               sh 'sshpass -p $PASSWORD ssh -v -o StrictHostKeyChecking=no $USERNAME@118.178.131.105 docker-compose -f /root/service/iteastyle-admin-test/docker-compose.yml rm -f '
               sh 'sshpass -p $PASSWORD ssh -v -o StrictHostKeyChecking=no $USERNAME@118.178.131.105 docker-compose -f /root/service/iteastyle-admin-test/docker-compose.yml up -d'
-              bearychatSend 'iteastyle-admin开发环境发布成功，访问地址为 https://admin-test.iteastyle.com/ , 快用力操它！'
+              bearychatSend 'iteastyle-admin开发环境发布成功，访问地址为 https://admin-test.iteastyle.cn/ , 快用力操它！'
             }
           }
         }
