@@ -12,10 +12,12 @@
                 <input class="input" type="password" placeholder="Password">
                 <i class="fa fa-lock"></i>
             </p>
-            <label>
-                <input type="checkbox">
-                Remember me
-            </label>
+            <p class="control">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </p>
             <p class="control">
                 <button class="button is-success">
                     Login
@@ -40,7 +42,6 @@
     filter: blur(4px);
 }
 .loginFrame{
-    border: 1px solid red;
     position: absolute;
 }
 </style>
