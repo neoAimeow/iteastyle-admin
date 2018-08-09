@@ -43,5 +43,14 @@
 }
 .loginFrame{
     position: absolute;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgb(212, 210, 210);
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 2px rgba(173,170,173,0.75);
+    padding: 10px;
 }
 </style>
