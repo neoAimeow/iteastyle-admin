@@ -22,7 +22,6 @@ Vue.use(VueBlu)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueSilentbox)
-Vue.use(require('vue-moment'))
 
 let request = axios.create({
     baseURL: 'https://iteastyle-api.aimeow.com/',
