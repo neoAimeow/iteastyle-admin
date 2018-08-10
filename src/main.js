@@ -6,8 +6,17 @@ import VueBlu from 'vue-blu'
 import axios from 'axios'
 import VueSilentbox from 'vue-silentbox'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-blu/dist/css/vue-blu.min.css'
+import moment from 'moment'
+
+if (process.env.NODE_ENV === 'development') {
+    require('element-ui/lib/theme-chalk/index.css')
+    Vue.use(moment)
+    Vue.use(ELEMENT)
+}
+Vue.filter('dateFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+    return moment(dataStr).format(pattern)
+})
 
 Vue.use(VueBlu)
 Vue.config.productionTip = false
