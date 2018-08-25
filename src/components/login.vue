@@ -12,7 +12,7 @@
             </div>
             <form class="bottom-container">
 
-                <p class="control has-icon" style="margin-top:50px;width: 70%;">
+                <p class="control has-icon" style="margin-top:30px;width: 70%;">
                     <input class="input" type="email" placeholder="Email">
                     <i class="fa fa-envelope"></i>
                 </p>
@@ -50,13 +50,13 @@
     }
 
     .loginFrame {
-        width: 500px;
-        height: 350px;
+        width: 350px;
+        height: 300px;
         display: flex;
         flex-direction: column;
         background-color: white;
         z-index: 3;
-        box-shadow:0px 10px 180px #141414;
+        box-shadow:0px 10px 130px #141414;
     }
 
     .decorate-container {
