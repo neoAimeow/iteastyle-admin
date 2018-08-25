@@ -31,7 +31,7 @@ let request = axios.create({
 Vue.prototype.$ajax = request
 
 new Vue({
-  router,
-  store,
-  render: h => h(Login)
+    router,
+    store,
+    render: h => h(Login)
 }).$mount('#app')
