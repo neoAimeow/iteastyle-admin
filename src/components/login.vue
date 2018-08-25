@@ -56,6 +56,7 @@
         flex-direction: column;
         background-color: white;
         z-index: 3;
+        box-shadow:0px 10px 180px #141414;
     }
 
     .decorate-container {
