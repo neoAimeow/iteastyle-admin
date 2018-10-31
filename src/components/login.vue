@@ -21,7 +21,7 @@
                     <i class="fa fa-lock"></i>
                 </p>
                 <p class="control" style="margin-top:10px;width: 70%">
-                    <button class="button is-info" style="margin-top:10px;width: 47%">登录</button>
+                    <router-link to="/home"><button class="button is-info" style="margin-top:10px;width: 47%">登录</button></router-link>
                     <button class="button is-danger" style="margin-top:10px;width: 47%;margin-left:6%;">忘记密码</button>
                 </p>
             </form>

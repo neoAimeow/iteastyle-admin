@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Login from './components/login.vue'
+import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueBlu from 'vue-blu'
@@ -33,5 +34,5 @@ Vue.prototype.$ajax = request
 new Vue({
     router,
     store,
-    render: h => h(Login)
+    render: h => h(App)
 }).$mount('#app')
