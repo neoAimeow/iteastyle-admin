@@ -76,14 +76,14 @@ export default {
   body,
   #app {
     width: 100%;
-    height: 100%;
+    //height: 100%;
     font-family: 'Lantinghei SC';
   }
 
   #app {
     display: flex;
     flex-direction: column;
-    min-height:900px;
+    //min-height:900px;
 
   }
 
@@ -91,16 +91,16 @@ export default {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height:96%;
+    //height:96%;
 
     background-color: $right-side-background-color;
     .home-left-side {
       display: flex;
       flex-direction: column;
-      height: 100%;
+      //height: 100%;
       min-width: 200px;
-      min-height:900px;
-      height: auto;
+      //min-height:900px;
+      //height: auto;
       // max-width: 300px;
       width: 15%;
       background-color: $left-side-main-color;
@@ -109,14 +109,15 @@ export default {
       display: flex;
       width: 85%;
       flex-direction: column;
-      height: 100%;
+      //height: 100%;
       .home-right-top {
         background-color: $right-side-top-color;
         // color: white;
-        position: relative;
+        //position: relative;
         display: flex;
-        height: 40px;
-        line-height: 25px;
+        //height: 40px;
+        //line-height: 25px;
+        padding: 10px 0 10px 0;
         .top-title {
           align-items: center;
           display: flex;
@@ -125,7 +126,7 @@ export default {
         }
         .top-user-info {
           width: 45%;
-          height: 40px;
+          //height: 40px;
           display: flex;
           justify-content: flex-end;
           text-align: right;
@@ -140,10 +141,11 @@ export default {
         }
       }
       .home-right-content {
-        position: relative;
-        top: 0px;
-        bottom: 0px;
-        height: auto;
+        //position: absolute;
+        //top: 0px;
+        //bottom: 0px;
+        //height: auto;
+        margin-bottom: 40px;
         background-color: $right-side-background-color;
       }
     }
