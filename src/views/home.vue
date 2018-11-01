@@ -126,6 +126,7 @@ export default {
         }
         .top-user-info {
           width: 45%;
+          min-width: 240px;
           //height: 40px;
           display: flex;
           justify-content: flex-end;
@@ -145,7 +146,7 @@ export default {
         //top: 0px;
         //bottom: 0px;
         //height: auto;
-        margin-bottom: 40px;
+        //margin-bottom: 40px;
         background-color: $right-side-background-color;
       }
     }
