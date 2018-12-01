@@ -13,14 +13,6 @@ export function getQiniuToken(TokenCallback) {
         })
 }
 
-
-export function getQiniuToken(TokenCallback) {
-    request.get('/upload/getUploadToken', {})
-        .then(function (response) {
-            TokenCallback(response.data.model)
-        })
-}
-
 export function showNotify(content) {
     Notification({
         title: '提示',

@@ -63,10 +63,11 @@
         methods: {
             request() {
                 var that = this
-                this.$ajax.get('/service/getPosts', {
+                this.$ajax.get('/admin/getList', {
                     params: {
                         pageSize: this.pageSize,
-                        page: this.currentPage
+                        page: this.currentPage,
+                        type: 'post'
                     }
                 })
                     .then(function (response) {
