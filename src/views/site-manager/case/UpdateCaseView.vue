@@ -13,8 +13,8 @@
         <div class="text-field" style="">
             <el-radio-group v-model="selectTypeName">
                 <el-radio-button v-for="(type,key) in caseType"
-                :key="key"
-                :label="type.typeName">
+                                 :key="key"
+                                 :label="type.typeName">
                 </el-radio-button>
             </el-radio-group>
         </div>
@@ -23,14 +23,14 @@
             <span>上传图片</span>
             <div class="upload-image-container">
                 <el-upload class="avatar-uploader"
-                    action="//up.qbox.me/"
-                    :multiple="true"
-                    :on-success="handleAvatarSuccess"
-                    :on-error="handleError"
-                    :before-upload="beforeAvatarUpload"
-                    :on-progress="uploadOnProgress"
-                    :data="uploadParam"
-                    >
+                           action="//up.qbox.me/"
+                           :multiple="true"
+                           :on-success="handleAvatarSuccess"
+                           :on-error="handleError"
+                           :before-upload="beforeAvatarUpload"
+                           :on-progress="uploadOnProgress"
+                           :data="uploadParam"
+                >
                     <i class="el-icon-plus avatar-uploader-icon"></i>
 
                 </el-upload>
@@ -42,7 +42,8 @@
 
         </div>
 
-      <Editor style="width:96%;margin-left:2%;height:300px;padding-top:20px;" :content="content" @on-content-change="onContentChange"></Editor>
+        <Editor style="width:96%;margin-left:2%;height:300px;padding-top:20px;" :content="content"
+                @on-content-change="onContentChange"></Editor>
 
         <div style="width:100%;margin-top:70px;margin-bottom:30px;display:flex;justify-content:flex-end;">
             <a class="button is-info is-active" style="margin-right:10px;" @click="reset">重置</a>
@@ -53,190 +54,185 @@
 </template>
 
 <script>
-import Editor from '../../common/Editor'
-export default {
-  components: {Editor},
-  created () {
-    this.request()
-    this.getTypes()
-    this.getToken()
-  },
-  data () {
-    return {
-      title: '',
-      uploadParam: {},
-      data: {},
-      imgArr: [],
-      caseType: [],
-      selectTypeName: '',
-      content: ''
+    import Editor from '../../common/Editor'
+
+    export default {
+        components: {Editor},
+        created() {
+            this.request()
+            this.getTypes()
+            this.getToken()
+        },
+        data() {
+            return {
+                title: '',
+                uploadParam: {},
+                data: {},
+                imgArr: [],
+                caseType: [],
+                selectTypeName: '',
+                content: ''
+            }
+        },
+
+        methods: {
+            onContentChange(val) {
+                this.content = val
+            },
+            request() {
+                var that = this
+                this.$ajax.get('/service/getCaseById', {
+                    params: {
+                        caseId: this.$route.query.id
+                    }
+                })
+                    .then(function (response) {
+                        console.log(response)
+                        that.data = response.data.model
+                        that.title = response.data.model.title
+                        that.imgArr = response.data.model.imageArr
+                        that.selectTypeName = response.data.model.typeName
+                    })
+            },
+            getTypes() {
+                var that = this
+                this.$ajax.get('/service/getCaseTypes', {}).then(function (response) {
+                    that.caseType = response.data.model
+                })
+            },
+            getToken() {
+                Util.getQiniuToken((token) => {
+                    that.uploadParam.token = token
+                })
+            },
+
+            handleError(res) {
+                this.$notify({
+                    title: '提示',
+                    message: '上传失败+res'
+                })
+            },
+
+            beforeAvatarUpload(file) {
+                console.log(this.uploadParam)
+
+                const isJPG = file.type === 'image/jpeg'
+                const isPNG = file.type === 'image/png'
+
+                if (!isJPG && !isPNG) {
+                    this.$notify({
+                        title: '提示',
+                        message: '上传头像图片只能是 JPG/PNG 格式!'
+                    })
+                }
+
+                return (isJPG || isPNG)
+            },
+
+            uploadOnProgress(event, file, fileList) {
+                console.log('uploadOnProgress')
+            },
+
+            handleAvatarSuccess(res, file) {
+                console.log('handleAvatarSuccess')
+
+                if (res.key != null) {
+                    this.imgArr.push('http://pazp3d0xt.bkt.clouddn.com/' + res.key)
+                }
+            },
+            reset() {
+                this.title = this.data.title
+
+                const type = this.data.type
+                let typeName = ''
+                this.caseType.forEach(element => {
+                    if (element.type === type) {
+                        typeName = element.typeName
+                    }
+                })
+
+                this.selectTypeName = typeName
+                this.imgArr = this.data.imageArr
+            },
+            submitButtonClick() {
+                if (this.title === '' || this.imgArr.length === 0) {
+                    this.$notify({
+                        title: '提示',
+                        message: '标题和图片不能为空'
+                    })
+                    return
+                }
+
+                let type = 0
+                this.caseType.forEach(element => {
+                    if (element.typeName === this.selectTypeName) {
+                        type = element.type
+                    }
+                })
+
+                let param = {
+                    id: this.$route.query.id,
+                    title: this.title,
+                    imageArr: this.imgArr,
+                    type: type
+                }
+
+                var that = this
+                this.$ajax.post('/admin/update', {
+                    param: JSON.stringify(param),
+                    type: 'case'
+                })
+                    .then(function (response) {
+                        console.log(response)
+                        if (response.data.success) {
+                            that.$notify({
+                                title: '提示',
+                                message: '修改成功'
+                            })
+                        }
+                    })
+                    .catch(function (response) {
+                        that.$notify({
+                            title: '错误',
+                            message: '修改失败'
+                        })
+                    })
+            },
+            imageButtonClick(key) {
+                this.$confirm('是否删除该图片？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'info',
+                    beforeClose: (action, instance, done) => {
+                        if (action === 'confirm') {
+                            let imageArray = this.imgArr
+                            this.imgArr = imageArray.splice(key, 1)
+                        }
+                        done()
+                    }
+                }).then(() => {
+                    this.$notify({
+                        title: '成功',
+                        message: '删除成功！',
+                        type: 'success'
+                    })
+                }).catch(() => {
+                    this.$notify({
+                        title: '提示',
+                        message: '已取消'
+                    })
+                })
+            }
+
+        }
     }
-  },
-
-  methods: {
-    onContentChange (val) {
-      this.content = val
-    },
-    request () {
-      var that = this
-      this.$ajax.get('/service/getCaseById', {
-        params: {
-          caseId: this.$route.query.id
-        }
-      })
-        .then(function (response) {
-          console.log(response)
-          that.data = response.data.model
-          that.title = response.data.model.title
-          that.imgArr = response.data.model.imageArr
-          that.selectTypeName = response.data.model.typeName
-        })
-    },
-    getTypes () {
-      var that = this
-      this.$ajax.get('/service/getCaseTypes', {
-      }).then(function (response) {
-        that.caseType = response.data.model
-      })
-    },
-    getToken () {
-      var that = this
-
-      this.$ajax.get('/upload/getUploadToken', {
-
-      })
-        .then(function (response) {
-          that.uploadParam.token = response.data.model
-        })
-    },
-
-    handleError (res) {
-      this.$notify({
-        title: '提示',
-        message: '上传失败+res'
-      })
-    },
-
-    beforeAvatarUpload (file) {
-      console.log(this.uploadParam)
-
-      const isJPG = file.type === 'image/jpeg'
-      const isPNG = file.type === 'image/png'
-
-      if (!isJPG && !isPNG) {
-        this.$notify({
-          title: '提示',
-          message: '上传头像图片只能是 JPG/PNG 格式!'
-        })
-      }
-
-      return (isJPG || isPNG)
-    },
-
-    uploadOnProgress (event, file, fileList) {
-      console.log('uploadOnProgress')
-    },
-
-    handleAvatarSuccess (res, file) {
-      console.log('handleAvatarSuccess')
-
-      if (res.key != null) {
-        this.imgArr.push('http://pazp3d0xt.bkt.clouddn.com/' + res.key)
-      }
-    },
-    reset () {
-      this.title = this.data.title
-
-      const type = this.data.type
-      let typeName = ''
-      this.caseType.forEach(element => {
-        if (element.type === type) {
-          typeName = element.typeName
-        }
-      })
-
-      this.selectTypeName = typeName
-      this.imgArr = this.data.imageArr
-    },
-    submitButtonClick () {
-      if (this.title === '' || this.imgArr.length === 0) {
-        this.$notify({
-          title: '提示',
-          message: '标题和图片不能为空'
-        })
-        return
-      }
-
-      let type = 0
-      this.caseType.forEach(element => {
-        if (element.typeName === this.selectTypeName) {
-          type = element.type
-        }
-      })
-
-      let param = {
-        id: this.$route.query.id,
-        title: this.title,
-        imageArr: this.imgArr,
-        type: type
-      }
-
-      var that = this
-      this.$ajax.post('/admin/update', {
-        param: JSON.stringify(param),
-        type: 'case'
-      })
-        .then(function (response) {
-          console.log(response)
-          if (response.data.success) {
-            that.$notify({
-              title: '提示',
-              message: '修改成功'
-            })
-          }
-        })
-        .catch(function (response) {
-          that.$notify({
-            title: '错误',
-            message: '修改失败'
-          })
-        })
-    },
-    imageButtonClick (key) {
-      this.$confirm('是否删除该图片？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'info',
-        beforeClose: (action, instance, done) => {
-          if (action === 'confirm') {
-            let imageArray = this.imgArr
-            this.imgArr = imageArray.splice(key, 1)
-          }
-          done()
-        }
-      }).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '删除成功！',
-          type: 'success'
-        })
-      }).catch(() => {
-        this.$notify({
-          title: '提示',
-          message: '已取消'
-        })
-      })
-    }
-
-  }
-}
 </script>
 
 <style lang="scss" scoped>
     .update-case-container {
-      margin: 2%;
-      background-color: white;
-      padding-bottom: 20px;
+        margin: 2%;
+        background-color: white;
+        padding-bottom: 20px;
     }
 
     .text-field {
@@ -244,13 +240,15 @@ export default {
         width: 96%;
         margin-top: 20px;
     }
+
     .avatar-uploader {
-      border: 1px dashed #d9d9d9;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
+
     .upload-image-container {
         width: 100%;
         height: auto;
