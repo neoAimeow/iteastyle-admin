@@ -55,6 +55,7 @@
 
 <script>
     import Editor from '../../common/Editor'
+    import {getQiniuToken} from '../../../common/util.js'
 
     export default {
         components: {Editor},
@@ -101,7 +102,7 @@
                 })
             },
             getToken() {
-                Util.getQiniuToken((token) => {
+                getQiniuToken((token) => {
                     that.uploadParam.token = token
                 })
             },

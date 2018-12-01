@@ -4,6 +4,7 @@
 </template>
 
 <script>
+    import {getQiniuToken} from '../../common/util.js'
     import {quillEditor, Quill} from 'vue-quill-editor'
     import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
     // require styles
@@ -16,7 +17,7 @@
 
     let qiniu = {'action': '//up.qbox.me/', 'baseUrl': '//pazp3d0xt.bkt.clouddn.com/', 'token': ''}
     let getToken = function () {
-        Util.getQiniuToken((token) => {
+        getQiniuToken((token) => {
             qiniu.token = token
         })
     }

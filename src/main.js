@@ -9,6 +9,7 @@ import VueSilentbox from 'vue-silentbox'
 import ElementUI from 'element-ui'
 import 'vue-blu/dist/css/vue-blu.min.css'
 import moment from 'moment'
+import {request} from './common/util.js'
 
 if (process.env.NODE_ENV === 'development') {
     require('element-ui/lib/theme-chalk/index.css')
@@ -23,11 +24,6 @@ Vue.use(VueBlu)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueSilentbox)
-
-let request = axios.create({
-    baseURL: 'https://iteastyle-api-test.aimeow.com/',
-    timeout: 1000
-});
 
 Vue.prototype.$ajax = request
 

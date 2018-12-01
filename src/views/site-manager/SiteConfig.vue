@@ -40,6 +40,7 @@
 </template>
 
 <script>
+    import {getQiniuToken} from '../../common/util.js'
 
     export default {
         created() {
@@ -60,13 +61,12 @@
                     params: {}
                 })
                     .then(function (response) {
-                        console.log(response)
                         that.data = response.data.model
                         that.imgHeaderArr = response.data.model.homepageBannerUrls
                     })
             },
             getToken() {
-                Util.getQiniuToken((token) => {
+                getQiniuToken((token) => {
                     this.uploadParam.token = token
                 })
             },
@@ -79,8 +79,6 @@
             },
 
             beforeHeaderImageUpload(file) {
-                console.log(this.uploadParam)
-
                 const isJPG = file.type === 'image/jpeg'
                 const isPNG = file.type === 'image/png'
 
