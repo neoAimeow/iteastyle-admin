@@ -2,7 +2,7 @@
     <div class="update-case-container">
 
         <div style="font-size:30px;padding-top:50px;margin-left:2%;">
-            修改产品展示
+            {{type === 'create'?'新增产品展示':'修改产品展示'}}
         </div>
 
         <div class="text-field" style="">
@@ -36,7 +36,7 @@
                 </el-upload>
 
                 <div v-for="(data, key) in imgArr" :key="key" class="upload-image-cell" :src="data">
-                    <img :src="data" style="width:100px;height:100px;" @click="imageButtonClick(key)">
+                    <img :src="qiniu_url + data" style="width:100px;height:100px;" @click="imageButtonClick(key)">
                 </div>
             </div>
 
@@ -60,7 +60,11 @@
     export default {
         components: {Editor},
         created() {
-            this.request()
+            this.data.type = this.$route.query.type;
+            if (this.data.type != 'create') {
+                this.request()
+            }
+
             this.getTypes()
             this.getToken()
         },
@@ -90,7 +94,6 @@
                     }
                 })
                     .then(function (response) {
-                        console.log(response)
                         that.data = response.data.model
                         that.title = response.data.model.title
                         that.imgArr = response.data.model.imageArr
@@ -100,7 +103,9 @@
 
             getTypes() {
                 var that = this
-                this.$ajax.get('/service/getCaseTypes', {})
+                this.$ajax.get('/service/getData', {params: {
+                        key:'caseType'
+                    }})
                     .then(function (response) {
                         that.caseType = response.data.model
                     })
@@ -119,25 +124,18 @@
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg'
                 const isPNG = file.type === 'image/png'
-
                 if (!isJPG && !isPNG) {
                     showNotify('上传头像图片只能是 JPG/PNG 格式!');
                 }
-
                 return (isJPG || isPNG)
             },
 
-            uploadOnProgress(event, file, fileList) {
-                console.log('uploadOnProgress')
-            },
-
             handleAvatarSuccess(res, file) {
-                console.log('handleAvatarSuccess')
-
                 if (res.key != null) {
                     this.imgArr.push('http://pazp3d0xt.bkt.clouddn.com/' + res.key)
                 }
             },
+
             reset() {
                 this.title = this.data.title
 
@@ -152,6 +150,7 @@
                 this.selectTypeName = typeName
                 this.imgArr = this.data.imageArr
             },
+
             submitButtonClick() {
                 if (this.title === '' || this.imgArr.length === 0) {
                     showNotify('标题和图片不能为空');
@@ -187,23 +186,31 @@
                         showNotify('修改失败');
                     })
             },
+
             imageButtonClick(key) {
-                this.$confirm('是否删除该图片？', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'info',
-                    beforeClose: (action, instance, done) => {
-                        if (action === 'confirm') {
-                            let imageArray = this.imgArr
-                            this.imgArr = imageArray.splice(key, 1)
-                        }
-                        done()
-                    }
-                }).then(() => {
-                    showNotify('删除成功');
-                }).catch(() => {
+                showAlert('是否删除该图片？')
+                    .then((value) => {
+                        console.log(value);
+                        showNotify('删除成功');
+                    }).catch(() => {
                     showNotify('已取消');
                 })
+                // this.$confirm('是否删除该图片？', '提示', {
+                //     confirmButtonText: '确定',
+                //     cancelButtonText: '取消',
+                //     type: 'info',
+                //     beforeClose: (action, instance, done) => {
+                //         if (action === 'confirm') {
+                //             let imageArray = this.imgArr
+                //             this.imgArr = imageArray.splice(key, 1)
+                //         }
+                //         done()
+                //     }
+                // }).then(() => {
+                //     showNotify('删除成功');
+                // }).catch(() => {
+                //     showNotify('已取消');
+                // })
             }
 
         }

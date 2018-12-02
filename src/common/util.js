@@ -27,8 +27,8 @@ export function showAlert(content) {
         MessageBox.confirm(content, '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消'
-        }).then(() => {
-            resolve();
+        }).then((value) => {
+            resolve(value);
         }).catch(() => {
             reject();
         })
