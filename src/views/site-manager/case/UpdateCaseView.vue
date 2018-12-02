@@ -167,13 +167,13 @@
                 })
 
                 let param = {
-                    id: this.$route.query.id,
                     title: this.title,
                     imageArr: this.imgArr,
                     type: type
                 }
 
                 if (this.type == 'update') {
+                    param.id = this.$route.query.id;
                     updateRequest(param, 'case');
                 } else {
                     createRequest(param, 'case');
@@ -181,11 +181,9 @@
             },
 
             imageButtonClick(key) {
-                showAlert('是否删除该图片？')
-                    .then((value) => {
-                        console.log(value);
-                        showNotify('删除成功');
-                    }).catch(() => {
+                showAlert('是否删除该图片？').then((value) => {
+                    showNotify('删除成功');
+                }).catch(() => {
                     showNotify('已取消');
                 })
                 // this.$confirm('是否删除该图片？', '提示', {

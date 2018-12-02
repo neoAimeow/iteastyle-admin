@@ -10,6 +10,8 @@ import ElementUI from 'element-ui'
 import 'vue-blu/dist/css/vue-blu.min.css'
 import moment from 'moment'
 import {request} from './common/util.js'
+import _ from 'lodash'
+Vue.prototype._ = _
 
 if (process.env.NODE_ENV === 'development') {
     require('element-ui/lib/theme-chalk/index.css')
