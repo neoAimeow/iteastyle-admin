@@ -1,12 +1,22 @@
 import axios from "axios/index";
 import {Notification, MessageBox} from 'element-ui';
 
+export const qiniu_url = 'http://image.iteastyle.cn/'
+
 export let request = axios.create({
     baseURL: 'https://iteastyle-api-test.aimeow.com/',
     timeout: 3000
 });
 
-export const qiniu_url = 'http://image.iteastyle.cn/'
+request.interceptors.request.use((config) => {
+    if (config.method === 'post') {
+        config.data = qs.stringify(config.data)
+        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    }
+    return config
+}, (error) => {
+    return Promise.reject(error)
+})
 
 export function getQiniuToken(TokenCallback) {
     request.get('/upload/getUploadToken', {})

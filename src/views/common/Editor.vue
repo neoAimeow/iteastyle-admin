@@ -4,18 +4,22 @@
 </template>
 
 <script>
-    import {getQiniuToken} from '../../common/util.js'
+    import {getQiniuToken, qiniu_url, request} from '@/common/util.js'
     import {quillEditor, Quill} from 'vue-quill-editor'
     import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
     // require styles
     import 'quill/dist/quill.core.css'
     import 'quill/dist/quill.snow.css'
     import 'quill/dist/quill.bubble.css'
-    import request from '@/views/common/request'
 
     Quill.register('modules/ImageExtend', ImageExtend)
 
-    let qiniu = {'action': '//up.qbox.me/', 'baseUrl': '//pazp3d0xt.bkt.clouddn.com/', 'token': ''}
+    let qiniu = {
+        'action': '//up.qbox.me/',
+        'baseUrl': qiniu_url,
+        'token': ''
+    }
+
     let getToken = function () {
         getQiniuToken((token) => {
             qiniu.token = token
