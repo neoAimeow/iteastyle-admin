@@ -6,6 +6,8 @@ export let request = axios.create({
     timeout: 3000
 });
 
+export const qiniu_url = 'http://image.iteastyle.cn/'
+
 export function getQiniuToken(TokenCallback) {
     request.get('/upload/getUploadToken', {})
         .then(function (response) {

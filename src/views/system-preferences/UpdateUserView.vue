@@ -47,22 +47,6 @@
 <script>
 
 export default {
-  // apollo: {
-  //     adminUserById: {
-  //         variables() {
-  //             return {
-  //                 id: this.$route.query.id
-  //             }
-  //         },
-  //         query() {
-  //             return adminUserGQL;
-  //         },
-  //         result({ data, loading, networkStatus }) {
-  //             console.log(data);
-  //             this.reset(data.adminUserById);
-  //         },
-  //     },
-  // },
   data () {
     return {
       adminUsers: {},
@@ -105,33 +89,6 @@ export default {
       const phone = this.phone
       const fullname = this.fullname
 
-      // return this.$apollo.mutate({
-      //         mutation: updateAdminUserGQL,
-      //         variables: {
-      //             input: {
-      //                 id,
-      //                 username,
-      //                 usernick,
-      //                 identifier,
-      //                 mail,
-      //                 phone,
-      //                 fullname
-      //             },
-      //         },
-      //     })
-      //     .then(() => {
-      //         this.$notify({
-      //             title: '成功',
-      //             message: '修改成功',
-      //             type: 'success'
-      //         });
-      //     })
-      //     .catch(err => {
-      //         this.$notify.open({
-      //             content: '修改失败',
-      //             type: 'danger'
-      //         });
-      //     })
     }
   }
 

@@ -55,7 +55,7 @@
 
 <script>
     import Editor from '../../common/Editor'
-    import {getQiniuToken} from '../../../common/util.js'
+    import {getQiniuToken, showAlert, showNotify, qiniu_url} from '../../../common/util.js'
 
     export default {
         components: {Editor},
@@ -66,6 +66,7 @@
         },
         data() {
             return {
+                type: 'create',
                 title: '',
                 uploadParam: {},
                 data: {},
@@ -80,6 +81,7 @@
             onContentChange(val) {
                 this.content = val
             },
+
             request() {
                 var that = this
                 this.$ajax.get('/service/getCaseById', {
@@ -95,36 +97,31 @@
                         that.selectTypeName = response.data.model.typeName
                     })
             },
+
             getTypes() {
                 var that = this
-                this.$ajax.get('/service/getCaseTypes', {}).then(function (response) {
-                    that.caseType = response.data.model
-                })
+                this.$ajax.get('/service/getCaseTypes', {})
+                    .then(function (response) {
+                        that.caseType = response.data.model
+                    })
             },
+
             getToken() {
                 getQiniuToken((token) => {
-                    that.uploadParam.token = token
+                    this.uploadParam.token = token
                 })
             },
 
             handleError(res) {
-                this.$notify({
-                    title: '提示',
-                    message: '上传失败+res'
-                })
+                showNotify('上传失败' + res);
             },
 
             beforeAvatarUpload(file) {
-                console.log(this.uploadParam)
-
                 const isJPG = file.type === 'image/jpeg'
                 const isPNG = file.type === 'image/png'
 
                 if (!isJPG && !isPNG) {
-                    this.$notify({
-                        title: '提示',
-                        message: '上传头像图片只能是 JPG/PNG 格式!'
-                    })
+                    showNotify('上传头像图片只能是 JPG/PNG 格式!');
                 }
 
                 return (isJPG || isPNG)
@@ -157,11 +154,8 @@
             },
             submitButtonClick() {
                 if (this.title === '' || this.imgArr.length === 0) {
-                    this.$notify({
-                        title: '提示',
-                        message: '标题和图片不能为空'
-                    })
-                    return
+                    showNotify('标题和图片不能为空');
+                    return;
                 }
 
                 let type = 0
@@ -186,17 +180,11 @@
                     .then(function (response) {
                         console.log(response)
                         if (response.data.success) {
-                            that.$notify({
-                                title: '提示',
-                                message: '修改成功'
-                            })
+                            showNotify('修改成功');
                         }
                     })
                     .catch(function (response) {
-                        that.$notify({
-                            title: '错误',
-                            message: '修改失败'
-                        })
+                        showNotify('修改失败');
                     })
             },
             imageButtonClick(key) {
@@ -212,16 +200,9 @@
                         done()
                     }
                 }).then(() => {
-                    this.$notify({
-                        title: '成功',
-                        message: '删除成功！',
-                        type: 'success'
-                    })
+                    showNotify('删除成功');
                 }).catch(() => {
-                    this.$notify({
-                        title: '提示',
-                        message: '已取消'
-                    })
+                    showNotify('已取消');
                 })
             }
 
