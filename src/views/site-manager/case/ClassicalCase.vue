@@ -11,7 +11,7 @@
         <el-table :data="cases" style="width:96%;margin-left:2%;margin-top:20px;">
             <el-table-column label="创建时间" width="170">
                 <template slot-scope="scope">
-                    <span>{{ scope.row.gmtCreate | moment("YYYY-MM-DD HH:mm")  }}</span>
+                    <span>{{ scope.row.gmtCreate | dateFormat("YYYY-MM-DD HH:mm")  }}</span>
                 </template>
             </el-table-column>
             <el-table-column label="产品案例ID" width="250">
@@ -69,8 +69,7 @@
                         }
                     })
                     .then(function (response) {
-                        that.cases = response.data.model.cases
-                        that.totalCount = response.data.model.totalCount
+                        that.cases = response.data.model.items
                     })
                     .catch(function (response) {
                         console.log(response)

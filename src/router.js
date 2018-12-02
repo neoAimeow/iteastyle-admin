@@ -29,21 +29,6 @@ import TeaDessert from '@/views/item-manager/TeaDessert.vue'
 import TeaGift from '@/views/item-manager/TeaGift.vue'
 import TeaOther from '@/views/item-manager/TeaOther.vue'
 
-import TeaBreakService from '@/views/site-manager/service/TeaBreakService.vue'
-import TeaGiftService from '@/views/site-manager/service/TeaGiftService.vue'
-
-import TeaDIYService from '@/views/site-manager/service/TeaDIY/TeaDIYService.vue'
-import CreateTeaDIYService from '@/views/site-manager/service/TeaDIY/CreateTeaDIYService.vue'
-import UpdateTeaDIYService from '@/views/site-manager/service/TeaDIY/UpdateTeaDIYService.vue'
-
-import CreateTeaLectureService from '@/views/site-manager/service/Lecture/CreateTeaLectureService.vue'
-import UpdateTeaLectureService from '@/views/site-manager/service/Lecture/UpdateTeaLectureService.vue'
-import TeaLectureService from '@/views/site-manager/service/Lecture/TeaLectureService.vue'
-
-import CreateTeaPerformService from '@/views/site-manager/service/Perform/CreateTeaPerformService.vue'
-import UpdateTeaPerformService from '@/views/site-manager/service/Perform/UpdateTeaPerformService.vue'
-import TeaPerformService from '@/views/site-manager/service/Perform/TeaPerformService.vue'
-
 Vue.use(Router)
 
 export default new Router({
@@ -74,61 +59,6 @@ export default new Router({
           path: '/site-manager/classical-case/update-case',
           name: '修改案例',
           component: UpdateCaseView
-        },
-        {
-          path: '/site-manager/service/teaBreak',
-          name: '茶歇服务',
-          component: TeaBreakService
-        },
-        {
-          path: '/site-manager/service/teaGift',
-          name: '伴手礼',
-          component: TeaGiftService
-        },
-        {
-          path: '/site-manager/service/teaDIY',
-          name: 'DIY活动',
-          component: TeaDIYService
-        },
-        {
-          path: '/site-manager/service/createTeaDIY',
-          name: '创建DIY活动',
-          component: CreateTeaDIYService
-        },
-        {
-          path: '/site-manager/service/updateTeaDIY',
-          name: '修改DIY活动',
-          component: UpdateTeaDIYService
-        },
-        {
-          path: '/site-manager/service/teaLecture',
-          name: '茶文化讲座',
-          component: TeaLectureService
-        },
-        {
-          path: '/site-manager/service/createTeaLecture',
-          name: '创建茶文化讲座',
-          component: CreateTeaLectureService
-        },
-        {
-          path: '/site-manager/service/updateTeaLecture',
-          name: '修改茶文化讲座',
-          component: UpdateTeaLectureService
-        },
-        {
-          path: '/site-manager/service/teaPerform',
-          name: '茶艺表演',
-          component: TeaPerformService
-        },
-        {
-          path: '/site-manager/service/createTeaPerform',
-          name: '创建茶艺表演',
-          component: CreateTeaPerformService
-        },
-        {
-          path: '/site-manager/service/updateTeaPerform',
-          name: '修改茶艺表演',
-          component: UpdateTeaPerformService
         },
         {
           path: '/site-manager/news-center',
