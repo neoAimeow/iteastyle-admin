@@ -2,7 +2,7 @@
     <div class="update-case-container">
 
         <div style="font-size:30px;padding-top:50px;margin-left:2%;">
-            {{type === 'create'?'新增产品展示':'修改产品展示'}}
+            {{type != 'update'?'新增产品展示':'修改产品展示'}}
         </div>
 
         <div class="text-field" style="">
@@ -64,15 +64,7 @@
 
     export default {
         components: {Editor},
-        created() {
-            this.data.type = this.$route.query.type;
-            if (this.data.type != 'create') {
-                this.request()
-            }
 
-            this.getTypes()
-            this.getToken()
-        },
         data() {
             return {
                 type: 'create',
@@ -82,8 +74,23 @@
                 imgArr: [],
                 caseType: [],
                 selectTypeName: '',
-                content: ''
+                content: '',
+                qiniu_url: ''
             }
+        },
+
+        created() {
+            this.type = this.$route.query.type;
+            this.qiniu_url = qiniu_url;
+
+            if (this.type === 'update') {
+                this.request()
+            }
+
+            this.getTypes()
+            getQiniuToken((token) => {
+                this.uploadParam.token = token
+            })
         },
 
         methods: {
@@ -97,28 +104,22 @@
                     params: {
                         caseId: this.$route.query.id
                     }
+                }).then(function (response) {
+                    that.data = response.data.model
+                    that.title = response.data.model.title
+                    that.imgArr = response.data.model.imageArr
+                    that.selectTypeName = response.data.model.typeName
                 })
-                    .then(function (response) {
-                        that.data = response.data.model
-                        that.title = response.data.model.title
-                        that.imgArr = response.data.model.imageArr
-                        that.selectTypeName = response.data.model.typeName
-                    })
             },
 
             getTypes() {
                 var that = this
-                this.$ajax.get('/service/getData', {params: {
-                        key:'caseType'
-                    }})
-                    .then(function (response) {
-                        that.caseType = response.data.model
-                    })
-            },
-
-            getToken() {
-                getQiniuToken((token) => {
-                    this.uploadParam.token = token
+                this.$ajax.get('/service/getData', {
+                    params: {
+                        key: 'caseType'
+                    }
+                }).then(function (response) {
+                    that.caseType = response.data.model
                 })
             },
 
@@ -137,7 +138,7 @@
 
             handleAvatarSuccess(res, file) {
                 if (res.key != null) {
-                    this.imgArr.push('http://pazp3d0xt.bkt.clouddn.com/' + res.key)
+                    this.imgArr.push(res.key)
                 }
             },
 

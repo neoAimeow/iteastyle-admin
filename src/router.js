@@ -4,7 +4,6 @@ import Login from '@/components/login.vue'
 import Home from '@/views/home.vue'
 
 import ClassicalCase from '@/views/site-manager/case/ClassicalCase'
-import CreateCaseView from '@/views/site-manager/case/CreateCaseView'
 import UpdateCaseView from '@/views/site-manager/case/UpdateCaseView'
 
 import NewsCenter from '@/views/site-manager/post/NewsCenter'
@@ -47,12 +46,6 @@ export default new Router({
           path: '/site-manager/classical-case',
           name: '经典案例',
           component: ClassicalCase
-        },
-    
-        {
-          path: '/site-manager/classical-case/create-case',
-          name: '新增案例',
-          component: CreateCaseView
         },
     
         {
