@@ -27,6 +27,15 @@
 
 <script>
     import Editor from '../../common/Editor'
+    import {
+        getQiniuToken,
+        showAlert,
+        showNotify,
+        createRequest,
+        updateRequest,
+        getDataById,
+        qiniu_url
+    } from '@/common/util.js';
 
     export default {
         components: {Editor},
@@ -56,10 +65,7 @@
 
             submitButtonClicked() {
                 if (this.title === '' || this.content === '') {
-                    this.$notify.open({
-                        content: '标题和内容不能为空',
-                        type: 'danger'
-                    })
+                    showNotify('标题和内容不能为空');
                     return
                 }
                 const id = this.id
