@@ -55,6 +55,7 @@
         showNotify,
         createRequest,
         updateRequest,
+        getDataById,
         qiniu_url
     } from '@/common/util.js';
 
@@ -95,17 +96,12 @@
             },
 
             request() {
-                var that = this
-                this.$ajax.get('/service/getCaseById', {
-                    params: {
-                        caseId: this.$route.query.id
-                    }
-                }).then(function (response) {
-                    that.data = response.data.model
-                    that.title = response.data.model.title
-                    that.imgArr = response.data.model.imageArr
-                    that.selectTypeName = response.data.model.typeName
-                })
+                getDataById(id, 'case').then(()=>{
+                    this.data = response.data.model
+                    this.title = response.data.model.title
+                    this.imgArr = response.data.model.imageArr
+                    this.selectTypeName = response.data.model.typeName
+                });
             },
 
             getTypes() {
@@ -140,7 +136,6 @@
 
             reset() {
                 this.title = this.data.title
-
                 const type = this.data.type
                 let typeName = ''
                 this.caseType.forEach(element => {

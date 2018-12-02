@@ -86,7 +86,6 @@ export function deleteRequest(id, type) {
 }
 
 export function getList(page, pageSize, type) {
-    console.log(pageSize)
     return new Promise(((resolve, reject) =>  {
         request.get('/admin/getList', {
             params: {
@@ -105,6 +104,26 @@ export function getList(page, pageSize, type) {
         })
     }));
 }
+
+export function getDataById(id, type) {
+    return new Promise(((resolve, reject) =>  {
+        request.get('/admin/getDataById', {
+            params: {
+                id: id,
+                type: type
+            }
+        }).then((response)=> {
+            if (response.data.success) {
+                resolve(response.data.model);
+            } else {
+                reject(response);
+            }
+        }).catch((response)=> {
+            reject(response);
+        })
+    }));
+}
+
 
 export function showNotify(content) {
     Notification({
