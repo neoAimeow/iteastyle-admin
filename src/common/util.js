@@ -15,6 +15,44 @@ export function getQiniuToken(TokenCallback) {
         })
 }
 
+export function createRequest(param, type) {
+    return new Promise(((resolve, reject) =>  {
+        request.post('/admin/create', {
+            param: JSON.stringify(param),
+            type: type
+        }).then((response)=> {
+            if (response.data.success) {
+                resolve(response);
+                showNotify('创建成功');
+            } else {
+                reject(response);
+                showNotify('创建成功');
+            }
+        }).catch((response)=> {
+            reject(response);
+        })
+    }));
+}
+
+export function updateRequest(param, type) {
+    return new Promise(((resolve, reject) =>  {
+        request.post('/admin/update', {
+            param: JSON.stringify(param),
+            type: type
+        }).then((response)=> {
+            if (response.data.success) {
+                resolve(response);
+                showNotify('修改成功');
+            } else {
+                reject(response);
+                showNotify('修改成功');
+            }
+        }).catch((response)=> {
+            reject(response);
+        })
+    }));
+}
+
 export function showNotify(content) {
     Notification({
         title: '提示',

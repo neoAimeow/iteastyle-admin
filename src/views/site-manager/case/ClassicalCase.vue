@@ -27,8 +27,9 @@
             </el-table-column>
             <el-table-column label="操作" width="120">
                 <template slot-scope="scope">
-                    <router-link :to="{path: '/site-manager/classical-case/update-case',query: {id:scope.row.id, type: 'update'}}"
-                                 style="color:white;">
+                    <router-link
+                            :to="{path: '/site-manager/classical-case/update-case',query: {id:scope.row.id, type: 'update'}}"
+                            style="color:white;">
                         <a class="button is-info is-active">编辑</a>
                     </router-link>
 
@@ -60,9 +61,11 @@
                 pageSize: 10
             }
         },
+
         created() {
             this.request()
         },
+
         methods: {
             request() {
                 var that = this

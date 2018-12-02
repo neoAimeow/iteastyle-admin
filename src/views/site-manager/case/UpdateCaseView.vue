@@ -12,27 +12,21 @@
 
         <div class="text-field" style="">
             <el-radio-group v-model="selectTypeName">
-                <el-radio-button v-for="(type,key) in caseType"
-                                 :key="key"
-                                 :label="type.typeName">
-                </el-radio-button>
+                <el-radio-button v-for="(type,key) in caseType" :key="key" :label="type.typeName"></el-radio-button>
             </el-radio-group>
         </div>
 
         <div class="text-field" style="">
             <span>上传图片</span>
             <div class="upload-image-container">
-                <el-upload class="avatar-uploader"
-                           action="//up.qbox.me/"
+                <el-upload class="avatar-uploader" action="//up.qbox.me/"
                            :multiple="true"
                            :on-success="handleAvatarSuccess"
                            :on-error="handleError"
                            :before-upload="beforeAvatarUpload"
                            :on-progress="uploadOnProgress"
-                           :data="uploadParam"
-                >
+                           :data="uploadParam">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
-
                 </el-upload>
 
                 <div v-for="(data, key) in imgArr" :key="key" class="upload-image-cell" :src="data">
@@ -59,6 +53,8 @@
         getQiniuToken,
         showAlert,
         showNotify,
+        createRequest,
+        updateRequest,
         qiniu_url
     } from '@/common/util.js';
 
@@ -177,20 +173,10 @@
                     type: type
                 }
 
-                var that = this
-                this.$ajax.post('/admin/update', {
-                    param: JSON.stringify(param),
-                    type: 'case'
-                })
-                    .then(function (response) {
-                        console.log(response)
-                        if (response.data.success) {
-                            showNotify('修改成功');
-                        }
-                    })
-                    .catch(function (response) {
-                        showNotify('修改失败');
-                    })
+                if (this.type == 'update') {
+                    updateRequest(param, 'case');
+                }
+
             },
 
             imageButtonClick(key) {
