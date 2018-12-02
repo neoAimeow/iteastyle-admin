@@ -44,6 +44,13 @@
 </template>
 
 <script>
+    import {
+        getQiniuToken,
+        showAlert,
+        showNotify,
+        qiniu_url
+    } from '@/common/util.js'
+
     export default {
         data() {
             return {
@@ -60,60 +67,41 @@
             request() {
                 var that = this
 
-                this.$ajax
-                    .get('/admin/getList', {
-                        params: {
-                            pageSize: that.pageSize,
-                            page: that.currentPage,
-                            type: 'case'
-                        }
-                    })
-                    .then(function (response) {
-                        that.cases = response.data.model.items
-                    })
-                    .catch(function (response) {
-                        console.log(response)
-                    })
+                this.$ajax.get('/admin/getList', {
+                    params: {
+                        pageSize: that.pageSize,
+                        page: that.currentPage,
+                        type: 'case'
+                    }
+                }).then(function (response) {
+                    that.cases = response.data.model.items
+                })
             },
+
             pageChanged(page) {
                 this.currentPage = page
-                console.log(this.currectPage)
                 this.request()
             },
+
             deleteButtonClicked(id) {
-                this.$alert('是否确认要删除这条产品展示？', '警告', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    showCancelButton: true
+                showAlert('是否确认要删除这条产品展示？').then(({}) => {
+                    this.delete(id)
                 })
-                    .then(({value}) => {
-                        this.delete(id)
-                    })
-                    .catch(() => {
-                    })
             },
+
             delete(id) {
                 var that = this
                 this.$ajax
                     .post('/admin/deleteCase', {
                         caseId: id
-                    })
-                    .then(function (response) {
-                        console.log(response)
-                        if (response.data.success) {
-                            that.$notify({
-                                title: '提示',
-                                message: '删除成功'
-                            })
-                            that.request()
-                        }
-                    })
-                    .catch(function (response) {
-                        that.$notify({
-                            title: '错误',
-                            message: '删除失败'
-                        })
-                    })
+                    }).then(function (response) {
+                    if (response.data.success) {
+                        showNotify('删除成功');
+                        that.request()
+                    }
+                }).catch(function (response) {
+                    showNotify('删除失败');
+                })
             }
         }
     }

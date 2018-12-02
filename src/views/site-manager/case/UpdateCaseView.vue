@@ -54,8 +54,13 @@
 </template>
 
 <script>
-    import Editor from '../../common/Editor'
-    import {getQiniuToken, showAlert, showNotify, qiniu_url} from '../../../common/util.js'
+    import Editor from '../../common/Editor';
+    import {
+        getQiniuToken,
+        showAlert,
+        showNotify,
+        qiniu_url
+    } from '@/common/util.js';
 
     export default {
         components: {Editor},
