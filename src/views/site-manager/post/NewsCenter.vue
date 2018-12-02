@@ -4,7 +4,7 @@
             新闻中心
         </div>
 
-        <router-link to="/site-manager/news-center/create-news" style="color:white;">
+        <router-link to="/site-manager/news-center/update-news" style="color:white;">
             <a class="button is-info is-active" style="  margin-top: 30px;margin-left:30px;width: 90px;">新增</a>
         </router-link>
 
@@ -28,7 +28,7 @@
             <el-table-column label="操作" width="120">
                 <template slot-scope="scope">
                     <a class="button is-info is-active">
-                        <router-link :to="{path: '/site-manager/news-center/update-news',query: {id:scope.row.id}}"
+                        <router-link :to="{path: '/site-manager/news-center/update-news',query: {id:scope.row.id, type:'update'}}"
                                      style="color:white;">编辑
                         </router-link>
                     </a>
@@ -46,6 +46,15 @@
 </template>
 
 <script>
+    import {
+        getQiniuToken,
+        showAlert,
+        showNotify,
+        getList,
+        deleteRequest,
+        qiniu_url
+    } from '@/common/util.js'
+
     export default {
         data() {
             return {
@@ -57,58 +66,34 @@
         },
 
         created() {
-            this.request()
+            this.request();
         },
 
         methods: {
             request() {
-                var that = this
-                this.$ajax.get('/admin/getList', {
-                    params: {
-                        pageSize: this.pageSize,
-                        page: this.currentPage,
-                        type: 'post'
-                    }
+                getList(this.currentPage, this.pageSize, 'post').then((response) => {
+                    this.currentPage = response.page;
+                    this.totalCount = response.totalCount;
+                    this.pageSize = response.pageSize;
+                    this.posts = response.items
                 })
-                    .then(function (response) {
-                        that.posts = response.data.model.items
-                        that.totalCount = response.data.model.totalCount
-                    })
             },
 
             pageChanged(page) {
-                this.currentPage = page
-                this.request()
+                this.currentPage = page;
+                this.request();
             },
 
             deleteButtonClicked(id) {
-                this.$alert('是否确认要删除该文章？', '警告', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    showCancelButton: true
-                }).then(() => {
-                    this.delete(id)
-                })
+                showAlert('是否确认要删除该文章？').then(()=>{
+                    this.delete(id);
+                });
             },
 
             delete(id) {
-                var that = this
-                this.$ajax.post('/admin/deletePost', {postId: id})
-                    .then(function (response) {
-                        if (response.data.success) {
-                            that.$notify({
-                                title: '提示',
-                                message: '删除成功'
-                            })
-                            that.request()
-                        }
-                    })
-                    .catch(function (response) {
-                        that.$notify({
-                            title: '错误',
-                            message: '删除失败'
-                        })
-                    })
+                deleteRequest(id , 'post').then(()=>{
+                    this.request()
+                })
             }
         }
     }

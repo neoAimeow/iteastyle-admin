@@ -85,7 +85,6 @@ export function getList(page, pageSize, type) {
                 type: type
             }
         }).then((response)=> {
-            console.log(response)
             if (response.data.success) {
                 resolve(response.data.model);
             } else {

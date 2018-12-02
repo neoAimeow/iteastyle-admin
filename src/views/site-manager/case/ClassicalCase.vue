@@ -19,7 +19,6 @@
                     <span>{{ scope.row.id }}</span>
                 </template>
             </el-table-column>
-
             <el-table-column label="案例标题">
                 <template slot-scope="scope">
                     <span>{{ scope.row.title }}</span>
@@ -32,14 +31,17 @@
                             style="color:white;">
                         <a class="button is-info is-active">编辑</a>
                     </router-link>
-
                     <a class="button is-danger is-active" @click="deleteButtonClicked(scope.row.id)">删除</a>
                 </template>
             </el-table-column>
         </el-table>
 
-        <pagination :change="pageChanged" :total="totalCount" :current="currentPage" :page-size="pageSize"
-                    style="margin-top:70px;margin-bottom:30px;"></pagination>
+        <pagination :change="pageChanged"
+                    :total="totalCount"
+                    :current="currentPage"
+                    :page-size="pageSize"
+                    style="margin-top:70px;margin-bottom:30px;">
+        </pagination>
 
     </div>
 </template>
@@ -70,14 +72,12 @@
 
         methods: {
             request() {
-                getList(this.currentPage, this.pageSize, 'case')
-                    .then((response) => {
-                        console.log(response)
-                        this.currentPage = response.page;
-                        this.totalCount = response.totalCount;
-                        this.pageSize = response.pageSize;
-                        this.cases = response.items
-                    })
+                getList(this.currentPage, this.pageSize, 'case').then((response) => {
+                    this.currentPage = response.page;
+                    this.totalCount = response.totalCount;
+                    this.pageSize = response.pageSize;
+                    this.cases = response.items
+                })
             },
 
             pageChanged(page) {
