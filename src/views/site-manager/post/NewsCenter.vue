@@ -51,6 +51,7 @@
         showAlert,
         showNotify,
         getList,
+        getDataById,
         deleteRequest,
         qiniu_url
     } from '@/common/util.js'
