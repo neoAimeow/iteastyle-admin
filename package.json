@@ -9,14 +9,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.5",
-    "express": "^4.16.4",
     "lodash": "^4.17.11",
     "quill-image-extend-module": "^1.1.2",
     "vue": "^2.5.17",
     "vue-blu": "^0.1.9",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",
-    "vue-silentbox": "^0.1.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

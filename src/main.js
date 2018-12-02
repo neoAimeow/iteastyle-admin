@@ -4,7 +4,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueBlu from 'vue-blu'
-import VueSilentbox from 'vue-silentbox'
 import ElementUI from 'element-ui'
 import 'vue-blu/dist/css/vue-blu.min.css'
 import moment from 'moment'
@@ -24,7 +23,6 @@ Vue.filter('dateFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
 Vue.use(VueBlu)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(VueSilentbox)
 
 Vue.prototype.$ajax = request
 

@@ -66,7 +66,6 @@
         },
 
         methods: {
-
             request() {
                 getDataById(this.id, 'post').then((res) => {
                     this.data = res;
@@ -90,7 +89,7 @@
             submitButtonClicked() {
                 if (this.title === '' || this.content === '') {
                     showNotify('标题和内容不能为空');
-                    return
+                    return;
                 }
 
                 let params = {

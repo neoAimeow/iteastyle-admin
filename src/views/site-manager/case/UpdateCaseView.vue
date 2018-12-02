@@ -96,11 +96,11 @@
             },
 
             request() {
-                getDataById(id, 'case').then(()=>{
-                    this.data = response.data.model
-                    this.title = response.data.model.title
-                    this.imgArr = response.data.model.imageArr
-                    this.selectTypeName = response.data.model.typeName
+                getDataById(this.$route.query.id, 'case').then((response)=>{
+                    this.data = response
+                    this.title = response.title
+                    this.imgArr = response.imageArr
+                    this.selectTypeName = response.typeName
                 });
             },
 
