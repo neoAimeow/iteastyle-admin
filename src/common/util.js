@@ -26,10 +26,11 @@ export function createRequest(param, type) {
                 showNotify('创建成功');
             } else {
                 reject(response);
-                showNotify('创建成功');
+                showNotify('创建失败');
             }
         }).catch((response)=> {
             reject(response);
+            showNotify('创建失败');
         })
     }));
 }
@@ -45,7 +46,48 @@ export function updateRequest(param, type) {
                 showNotify('修改成功');
             } else {
                 reject(response);
-                showNotify('修改成功');
+                showNotify('修改失败');
+            }
+        }).catch((response)=> {
+            reject(response);
+            showNotify('修改失败');
+        })
+    }));
+}
+
+export function deleteRequest(id, type) {
+    return new Promise(((resolve, reject) =>  {
+        request.post('/admin/delete', {
+            id: id,
+            type: type
+        }).then((response)=> {
+            if (response.data.success) {
+                resolve(response);
+                showNotify('删除成功');
+            } else {
+                reject(response);
+                showNotify('删除失败');
+            }
+        }).catch((response)=> {
+            reject(response);
+            showNotify('删除失败');
+        })
+    }));
+}
+
+export function getList(page, pageSize, type) {
+    return new Promise(((resolve, reject) =>  {
+        request.get('/admin/getList', {
+            params: {
+                pageSize: pageSize,
+                page: page,
+                type: type
+            }
+        }).then((response)=> {
+            if (response.data.success) {
+                resolve(response);
+            } else {
+                reject(response);
             }
         }).catch((response)=> {
             reject(response);

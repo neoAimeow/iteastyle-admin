@@ -49,6 +49,8 @@
         getQiniuToken,
         showAlert,
         showNotify,
+        getList,
+        deleteRequest,
         qiniu_url
     } from '@/common/util.js'
 
@@ -69,14 +71,7 @@
         methods: {
             request() {
                 var that = this
-
-                this.$ajax.get('/admin/getList', {
-                    params: {
-                        pageSize: that.pageSize,
-                        page: that.currentPage,
-                        type: 'case'
-                    }
-                }).then(function (response) {
+                getList(that.currentPage, that.pageSize, 'case').then((response) => {
                     that.cases = response.data.model.items
                 })
             },
@@ -87,24 +82,15 @@
             },
 
             deleteButtonClicked(id) {
-                showAlert('是否确认要删除这条产品展示？').then(({}) => {
+                showAlert('是否确认要删除这条产品展示？').then(() => {
                     this.delete(id)
                 })
             },
 
             delete(id) {
-                var that = this
-                this.$ajax
-                    .post('/admin/deleteCase', {
-                        caseId: id
-                    }).then(function (response) {
-                    if (response.data.success) {
-                        showNotify('删除成功');
-                        that.request()
-                    }
-                }).catch(function (response) {
-                    showNotify('删除失败');
-                })
+                deleteRequest(id, 'case').then(() => {
+                    this.request()
+                });
             }
         }
     }

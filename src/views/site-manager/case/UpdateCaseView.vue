@@ -127,7 +127,7 @@
                 const isJPG = file.type === 'image/jpeg'
                 const isPNG = file.type === 'image/png'
                 if (!isJPG && !isPNG) {
-                    showNotify('上传头像图片只能是 JPG/PNG 格式!');
+                    showNotify('上传图片只能是 JPG/PNG 格式!');
                 }
                 return (isJPG || isPNG)
             },
@@ -175,8 +175,9 @@
 
                 if (this.type == 'update') {
                     updateRequest(param, 'case');
+                } else {
+                    createRequest(param, 'case');
                 }
-
             },
 
             imageButtonClick(key) {
@@ -228,6 +229,7 @@
         cursor: pointer;
         position: relative;
         overflow: hidden;
+        margin-right: 5px;
     }
 
     .upload-image-container {
@@ -245,6 +247,7 @@
             position: relative;
             margin-top: 5px;
             margin-bottom: 5px;
+            margin-right: 5px;
         }
     }
 
