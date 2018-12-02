@@ -47,7 +47,7 @@
                 id: '',
                 title: '',
                 content: '',
-                image: '',
+                imageUrl: '',
                 qiniu_url: ''
             }
         },
@@ -92,10 +92,19 @@
                     showNotify('标题和内容不能为空');
                     return
                 }
-                const id = this.id
-                const title = this.title
-                const content = this.content
 
+                let params = {
+                    title: this.title,
+                    content: this.content,
+                    imageUrl: this.imageUrl
+                }
+                
+                if (this.type === 'create') {
+                    params.id = this.id;
+                    createRequest(params, 'post');
+                } else {
+                    updateRequest(params, 'post');
+                }
             }
         }
 
