@@ -70,10 +70,14 @@
 
         methods: {
             request() {
-                var that = this
-                getList(that.currentPage, that.pageSize, 'case').then((response) => {
-                    that.cases = response.data.model.items
-                })
+                getList(this.currentPage, this.pageSize, 'case')
+                    .then((response) => {
+                        console.log(response)
+                        this.currentPage = response.page;
+                        this.totalCount = response.totalCount;
+                        this.pageSize = response.pageSize;
+                        this.cases = response.items
+                    })
             },
 
             pageChanged(page) {

@@ -22,7 +22,7 @@ export function createRequest(param, type) {
             type: type
         }).then((response)=> {
             if (response.data.success) {
-                resolve(response);
+                resolve(response.data.model);
                 showNotify('创建成功');
             } else {
                 reject(response);
@@ -42,7 +42,7 @@ export function updateRequest(param, type) {
             type: type
         }).then((response)=> {
             if (response.data.success) {
-                resolve(response);
+                resolve(response.data.model);
                 showNotify('修改成功');
             } else {
                 reject(response);
@@ -62,7 +62,7 @@ export function deleteRequest(id, type) {
             type: type
         }).then((response)=> {
             if (response.data.success) {
-                resolve(response);
+                resolve(response.data.model);
                 showNotify('删除成功');
             } else {
                 reject(response);
@@ -76,6 +76,7 @@ export function deleteRequest(id, type) {
 }
 
 export function getList(page, pageSize, type) {
+    console.log(pageSize)
     return new Promise(((resolve, reject) =>  {
         request.get('/admin/getList', {
             params: {
@@ -84,8 +85,9 @@ export function getList(page, pageSize, type) {
                 type: type
             }
         }).then((response)=> {
+            console.log(response)
             if (response.data.success) {
-                resolve(response);
+                resolve(response.data.model);
             } else {
                 reject(response);
             }
