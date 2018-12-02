@@ -28,8 +28,9 @@
             <el-table-column label="操作" width="120">
                 <template slot-scope="scope">
                     <a class="button is-info is-active">
-                        <router-link :to="{path: '/site-manager/news-center/update-news',query: {id:scope.row.id, type:'update'}}"
-                                     style="color:white;">编辑
+                        <router-link
+                                :to="{path: '/site-manager/news-center/update-news',query: {id:scope.row.id, type:'update'}}"
+                                style="color:white;">编辑
                         </router-link>
                     </a>
                     <a class="button is-danger is-active" @click="deleteButtonClicked(scope.row.id)">删除</a>
@@ -38,8 +39,7 @@
         </el-table>
 
         <pagination :change="pageChanged" :total="totalCount" :current="currentPage" :page-size="pageSize"
-                    style="margin-top:70px;margin-bottom:30px;">
-            {{posts}}
+                    style="margin-top:70px;margin-bottom:30px;">{{posts}}
         </pagination>
 
     </div>
@@ -85,13 +85,13 @@
             },
 
             deleteButtonClicked(id) {
-                showAlert('是否确认要删除该文章？').then(()=>{
+                showAlert('是否确认要删除该文章？').then(() => {
                     this.delete(id);
                 });
             },
 
             delete(id) {
-                deleteRequest(id , 'post').then(()=>{
+                deleteRequest(id, 'post').then(() => {
                     this.request()
                 })
             }
