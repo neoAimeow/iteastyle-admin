@@ -2,7 +2,7 @@
     <div class="create-news-container">
 
         <div style="font-size:30px;padding-top:50px;margin-left:2%;">
-            编辑文章
+            {{type != 'update'?'新建文章':'编辑文章'}}
         </div>
 
         <div class="text-field" style="">
@@ -42,13 +42,37 @@
         data() {
             return {
                 type: 'create',
-                postById: {},
+                data: {},
+                uploadParam: {},
                 id: '',
                 title: '',
-                content: ''
+                content: '',
+                image: '',
+                qiniu_url: ''
             }
         },
+
+        created() {
+            this.type = this.$route.query.type;
+            this.qiniu_url = qiniu_url;
+
+            if (this.type === 'update') {
+                this.request()
+            }
+
+            getQiniuToken((token) => {
+                this.uploadParam.token = token
+            })
+        },
+
         methods: {
+
+            request() {
+                getDataById(this.id, 'post').then((res) => {
+                    this.data = res;
+                })
+            },
+
             onContentChange(val) {
                 this.content = val
             },
