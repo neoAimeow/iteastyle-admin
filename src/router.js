@@ -7,7 +7,6 @@ import ClassicalCase from '@/views/site-manager/case/ClassicalCase'
 import UpdateCaseView from '@/views/site-manager/case/UpdateCaseView'
 
 import NewsCenter from '@/views/site-manager/post/NewsCenter'
-import CreateNewsView from '@/views/site-manager/post/CreateNewsView'
 import UpdateNewsView from '@/views/site-manager/post/UpdateNewsView'
 
 import SiteConfig from '@/views/site-manager/SiteConfig'
@@ -44,11 +43,6 @@ export default new Router({
           path: '/site-manager/news-center',
           name: '新闻中心',
           component: NewsCenter
-        },
-        {
-          path: '/site-manager/news-center/create-news',
-          name: '新建文章',
-          component: CreateNewsView
         },
         {
           path: '/site-manager/news-center/update-news',
