@@ -15,7 +15,7 @@
     Quill.register('modules/ImageExtend', ImageExtend)
 
     let qiniu = {
-        'action': '//up.qbox.me/',
+        'action': '//up-z2.qiniup.com/',
         'baseUrl': qiniu_url,
         'token': ''
     }

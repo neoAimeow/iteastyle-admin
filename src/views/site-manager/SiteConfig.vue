@@ -8,7 +8,7 @@
             <span>首页banner图管理</span>
             <div class="upload-image-container">
                 <el-upload class="avatar-uploader upload-image-cell"
-                           action="//up.qbox.me/"
+                           action="//up-z2.qiniup.com/"
                            :multiple="true"
                            :on-success="handleHeaderImageSuccess"
                            :on-error="handleError"

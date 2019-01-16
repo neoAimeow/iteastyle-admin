@@ -19,7 +19,7 @@
         <div class="text-field" style="">
             <span>上传图片</span>
             <div class="upload-image-container">
-                <el-upload class="avatar-uploader" action="//up.qbox.me/"
+                <el-upload class="avatar-uploader" action="//up-z2.qiniup.com/"
                            :multiple="true"
                            :on-success="handleAvatarSuccess"
                            :on-error="handleError"
