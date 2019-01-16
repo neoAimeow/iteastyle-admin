@@ -12,7 +12,7 @@
 
         <div class="text-field" style="">
             <el-radio-group v-model="selectTypeName">
-                <el-radio-button v-for="(type,key) in caseType" :key="key" :label="type.typeName"></el-radio-button>
+                <el-radio-button v-for="(type,key) in caseType" :key="key" :label="type.typeName" ></el-radio-button>
             </el-radio-group>
         </div>
 
@@ -24,6 +24,7 @@
                            :on-success="handleAvatarSuccess"
                            :on-error="handleError"
                            :before-upload="beforeAvatarUpload"
+                           :show-file-list="false"
                            :data="uploadParam">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
@@ -63,6 +64,7 @@
 
         data() {
             return {
+                id: '',
                 type: 'create',
                 title: '',
                 uploadParam: {},
@@ -77,6 +79,7 @@
 
         created() {
             this.type = this.$route.query.type;
+            this.id = this.$route.query.id;
             this.qiniu_url = qiniu_url;
 
             if (this.type === 'update') {
@@ -95,7 +98,7 @@
             },
 
             request() {
-                getDataById(this.$route.query.id, 'case').then((response)=>{
+                getDataById(this.id, 'case').then((response)=>{
                     this.data = response
                     this.title = response.title
                     this.imgArr = response.imageArr
@@ -166,7 +169,7 @@
                     type: type
                 }
 
-                if (this.type == 'update') {
+                if (this.type === 'update') {
                     param.id = this.$route.query.id;
                     updateRequest(param, 'case');
                 } else {
@@ -176,6 +179,8 @@
 
             imageButtonClick(key) {
                 showAlert('是否删除该图片？').then((value) => {
+                    // let imageArray = this.imgArr;
+                    // this.imgArr = imageArray.splice(key, 1);
                     showNotify('删除成功');
                 }).catch(() => {
                     showNotify('已取消');
@@ -186,9 +191,7 @@
                 //     type: 'info',
                 //     beforeClose: (action, instance, done) => {
                 //         if (action === 'confirm') {
-                //             let imageArray = this.imgArr
-                //             this.imgArr = imageArray.splice(key, 1)
-                //         }
+                 //         }
                 //         done()
                 //     }
                 // }).then(() => {

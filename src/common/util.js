@@ -12,7 +12,7 @@ export let request = axios.create({
 
 request.interceptors.request.use((config) => {
     if (config.method === 'post') {
-        config.data = JSON.stringify(config.data)
+        config.data = qs.stringify(config.data)
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
     return config;
@@ -28,10 +28,11 @@ export function getQiniuToken(TokenCallback) {
 }
 
 export function createRequest(param, type) {
+    console.log(param)
     return new Promise(((resolve, reject) => {
         request.get('/admin/create', {
             params: {
-                param: JSON.stringify(param),
+                param: qs.stringify(param),
                 type: type
             }
         }).then((response) => {
@@ -50,10 +51,11 @@ export function createRequest(param, type) {
 }
 
 export function updateRequest(param, type) {
+    console.log(param);
     return new Promise(((resolve, reject) => {
         request.get('/admin/update', {
             params: {
-                param: JSON.stringify(param),
+                param: qs.stringify(param),
                 type: type
             }
         }).then((response) => {
@@ -73,7 +75,7 @@ export function updateRequest(param, type) {
 
 export function deleteRequest(id, type) {
     return new Promise(((resolve, reject) => {
-        request.post('/admin/delete', {
+        request.get('/admin/delete', {
             params: {
                 id: id,
                 type: type
