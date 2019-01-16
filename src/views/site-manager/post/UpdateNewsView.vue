@@ -7,13 +7,19 @@
 
         <div class="text-field" style="">
             <span>文章封面</span>
-            <input class="input" type="text" placeholder="标题" v-model="title">
+            <input class="input" type="text" placeholder="标题" v-model="imageUrl">
         </div>
 
         <div class="text-field" style="">
             <span>文章标题</span>
             <input class="input" type="text" placeholder="标题" v-model="title">
         </div>
+
+        <div class="text-field" style="">
+            <span>文章摘要</span>
+            <input class="input" type="text" placeholder="摘要" v-model="summary">
+        </div>
+
         <Editor style="width:96%;margin-left:2%;height:300px;padding-top:20px;" :content="content"
                 @on-content-change="onContentChange"></Editor>
 
@@ -47,6 +53,7 @@
                 id: '',
                 title: '',
                 content: '',
+                summary: '',
                 imageUrl: '',
                 qiniu_url: ''
             }
@@ -54,6 +61,8 @@
 
         created() {
             this.type = this.$route.query.type;
+            this.id = this.$route.query.id;
+
             this.qiniu_url = qiniu_url;
 
             if (this.type === 'update') {
@@ -69,6 +78,8 @@
             request() {
                 getDataById(this.id, 'post').then((res) => {
                     this.data = res;
+                    this.reset(this.data);
+                    console.log(res);
                 })
             },
 
@@ -77,9 +88,10 @@
             },
 
             reset(data) {
-                this.id = data.id
-                this.title = data.title
-                this.content = data.content
+                this.id = data.id;
+                this.title = data.title;
+                this.content = data.content;
+                this.summary = data.summary;
             },
 
             resetButtonClick() {
@@ -99,9 +111,9 @@
                 }
                 
                 if (this.type === 'create') {
-                    params.id = this.id;
                     createRequest(params, 'post');
                 } else {
+                    params.id = this.id;
                     updateRequest(params, 'post');
                 }
             }

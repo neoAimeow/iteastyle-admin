@@ -1,16 +1,18 @@
 import axios from "axios/index";
 import {Notification, MessageBox} from 'element-ui';
+const qs = require('qs');
 
 export const qiniu_url = 'http://image.iteastyle.cn/'
 
 export let request = axios.create({
-    baseURL: 'https://iteastyle-api-test.aimeow.com/',
+    // baseURL: 'https://iteastyle-api-test.aimeow.com/',
+    baseURL: 'http://localhost:8080/',
     timeout: 3000
 });
 
 request.interceptors.request.use((config) => {
     if (config.method === 'post') {
-        config.data = qs.stringify(config.data)
+        config.data = JSON.stringify(config.data)
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
     return config;
@@ -27,9 +29,11 @@ export function getQiniuToken(TokenCallback) {
 
 export function createRequest(param, type) {
     return new Promise(((resolve, reject) => {
-        request.post('/admin/create', {
-            param: JSON.stringify(param),
-            type: type
+        request.get('/admin/create', {
+            params: {
+                param: JSON.stringify(param),
+                type: type
+            }
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
@@ -47,9 +51,11 @@ export function createRequest(param, type) {
 
 export function updateRequest(param, type) {
     return new Promise(((resolve, reject) => {
-        request.post('/admin/update', {
-            param: JSON.stringify(param),
-            type: type
+        request.get('/admin/update', {
+            params: {
+                param: JSON.stringify(param),
+                type: type
+            }
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
@@ -68,8 +74,11 @@ export function updateRequest(param, type) {
 export function deleteRequest(id, type) {
     return new Promise(((resolve, reject) => {
         request.post('/admin/delete', {
-            id: id,
-            type: type
+            params: {
+                id: id,
+                type: type
+            }
+
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);

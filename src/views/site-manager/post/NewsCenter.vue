@@ -4,7 +4,8 @@
             新闻中心
         </div>
 
-        <router-link to="/site-manager/news-center/update-news" style="color:white;">
+        <router-link
+                :to="{path: '/site-manager/news-center/update-news',query: {type:'create'}}" style="color:white;">
             <a class="button is-info is-active" style="  margin-top: 30px;margin-left:30px;width: 90px;">新增</a>
         </router-link>
 

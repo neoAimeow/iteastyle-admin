@@ -38,17 +38,18 @@ const menus = {
             ]
         }
     ],
-    'Administration': [{
-        icon: '',
-        title: '设置',
-        path: '/system-preferences/index',
-        subMenu: [{
+    'Administration': [
+        {
             icon: '',
-            title: '用户管理',
-            path: '/system-preferences/user-manager'
-        }
-        ]
-    },
+            title: '设置',
+            path: '/system-preferences/index',
+            subMenu: [{
+                icon: '',
+                title: '用户管理',
+                path: '/system-preferences/user-manager'
+            }
+            ]
+        },
         {
             icon: '',
             title: '数据展示',
