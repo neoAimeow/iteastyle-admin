@@ -1,24 +1,21 @@
 const menus = {
-    'CONTENT MANAGER': [{
-        icon: '',
-        title: '基本管理',
-        subMenu: [{
+    'CONTENT MANAGER': [
+        {
             icon: '',
-            title: '新闻中心',
-            path: '/site-manager/news-center'
+            title: '基本管理',
+            subMenu: [
+                {
+                    icon: '',
+                    title: '新闻中心',
+                    path: '/site-manager/news-center'
+                },
+                {
+                    icon: '',
+                    title: '产品展示',
+                    path: '/site-manager/classical-case'
+                }
+            ]
         },
-            {
-                icon: '',
-                title: '产品展示',
-                path: '/site-manager/classical-case'
-            },
-            {
-                icon: '',
-                title: '服务管理',
-                path: '/site-manager/site-config'
-            }
-        ]
-    },
         {
             icon: '',
             title: '其它管理',
@@ -26,17 +23,17 @@ const menus = {
                 {
                     icon: '',
                     title: '商品管理',
-                    path: '/site-manager/service/teaGift'
+                    // path: '/site-manager/service/teaGift'
                 },
                 {
                     icon: '',
                     title: '订单管理',
-                    path: '/site-manager/service/teaDIY'
+                    // path: '/site-manager/service/teaDIY'
                 },
                 {
                     icon: '',
                     title: '用户信息查询',
-                    path: '/site-manager/service/teaLecture'
+                    // path: '/site-manager/service/teaLecture'
                 }
             ]
         }
@@ -49,17 +46,7 @@ const menus = {
             icon: '',
             title: '用户管理',
             path: '/system-preferences/user-manager'
-        },
-            {
-                icon: '',
-                title: '信息管理',
-                path: '/system-preferences/info-manager'
-            },
-            {
-                icon: '',
-                title: '操作日志',
-                path: '/system-preferences/log-shower'
-            }
+        }
         ]
     },
         {
@@ -69,12 +56,12 @@ const menus = {
             subMenu: [{
                 icon: '',
                 title: '小程序数据',
-                path: '/data-shower/mini-program-data'
+                // path: '/data-shower/mini-program-data'
             },
                 {
                     icon: '',
                     title: '网站数据',
-                    path: '/data-shower/site-data'
+                    // path: '/data-shower/site-data'
                 }
             ]
         }

@@ -13,7 +13,7 @@ request.interceptors.request.use((config) => {
         config.data = qs.stringify(config.data)
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
-    return config
+    return config;
 }, (error) => {
     return Promise.reject(error)
 })
@@ -26,11 +26,11 @@ export function getQiniuToken(TokenCallback) {
 }
 
 export function createRequest(param, type) {
-    return new Promise(((resolve, reject) =>  {
+    return new Promise(((resolve, reject) => {
         request.post('/admin/create', {
             param: JSON.stringify(param),
             type: type
-        }).then((response)=> {
+        }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
                 showNotify('创建成功');
@@ -38,7 +38,7 @@ export function createRequest(param, type) {
                 reject(response);
                 showNotify('创建失败');
             }
-        }).catch((response)=> {
+        }).catch((response) => {
             reject(response);
             showNotify('创建失败');
         })
@@ -46,11 +46,11 @@ export function createRequest(param, type) {
 }
 
 export function updateRequest(param, type) {
-    return new Promise(((resolve, reject) =>  {
+    return new Promise(((resolve, reject) => {
         request.post('/admin/update', {
             param: JSON.stringify(param),
             type: type
-        }).then((response)=> {
+        }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
                 showNotify('修改成功');
@@ -58,7 +58,7 @@ export function updateRequest(param, type) {
                 reject(response);
                 showNotify('修改失败');
             }
-        }).catch((response)=> {
+        }).catch((response) => {
             reject(response);
             showNotify('修改失败');
         })
@@ -66,11 +66,11 @@ export function updateRequest(param, type) {
 }
 
 export function deleteRequest(id, type) {
-    return new Promise(((resolve, reject) =>  {
+    return new Promise(((resolve, reject) => {
         request.post('/admin/delete', {
             id: id,
             type: type
-        }).then((response)=> {
+        }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
                 showNotify('删除成功');
@@ -78,7 +78,7 @@ export function deleteRequest(id, type) {
                 reject(response);
                 showNotify('删除失败');
             }
-        }).catch((response)=> {
+        }).catch((response) => {
             reject(response);
             showNotify('删除失败');
         })
@@ -86,39 +86,39 @@ export function deleteRequest(id, type) {
 }
 
 export function getList(page, pageSize, type) {
-    return new Promise(((resolve, reject) =>  {
+    return new Promise(((resolve, reject) => {
         request.get('/admin/getList', {
             params: {
                 pageSize: pageSize,
                 page: page,
                 type: type
             }
-        }).then((response)=> {
+        }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
             } else {
                 reject(response);
             }
-        }).catch((response)=> {
+        }).catch((response) => {
             reject(response);
         })
     }));
 }
 
 export function getDataById(id, type) {
-    return new Promise(((resolve, reject) =>  {
+    return new Promise(((resolve, reject) => {
         request.get('/admin/getDataById', {
             params: {
                 id: id,
                 type: type
             }
-        }).then((response)=> {
+        }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
             } else {
                 reject(response);
             }
-        }).catch((response)=> {
+        }).catch((response) => {
             reject(response);
         })
     }));
