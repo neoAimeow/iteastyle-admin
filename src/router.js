@@ -9,8 +9,6 @@ import UpdateCaseView from '@/views/site-manager/case/UpdateCaseView'
 import NewsCenter from '@/views/site-manager/post/NewsCenter'
 import UpdateNewsView from '@/views/site-manager/post/UpdateNewsView'
 
-import SiteConfig from '@/views/site-manager/SiteConfig'
-
 import UserManager from '@/views/system-preferences/UserManager.vue'
 import UpdateUserView from '@/views/system-preferences/UpdateUserView.vue'
 
@@ -48,11 +46,6 @@ export default new Router({
           path: '/site-manager/news-center/update-news',
           name: '修改文章',
           component: UpdateNewsView
-        },
-        {
-          path: '/site-manager/site-config',
-          name: '网站管理',
-          component: SiteConfig
         },
 
         {
