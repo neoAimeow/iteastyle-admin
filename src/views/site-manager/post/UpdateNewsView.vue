@@ -7,7 +7,19 @@
 
         <div class="text-field" style="">
             <span>文章封面</span>
-            <input class="input" type="text" placeholder="标题" v-model="imageUrl">
+            <div class="upload-image-container">
+                <el-upload class="avatar-uploader" action="//up-z2.qiniup.com/"
+                           :on-success="handleAvatarSuccess"
+                           :on-error="handleError"
+                           :before-upload="beforeAvatarUpload"
+                           :show-file-list="false"
+                           :data="uploadParam">
+                    <img v-if="imageUrl" :src="qiniu_url + imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+
+                    <!--<i class="el-icon-plus avatar-uploader-icon"></i>-->
+                </el-upload>
+            </div>
         </div>
 
         <div class="text-field" style="">
@@ -92,6 +104,26 @@
                 this.title = data.title;
                 this.content = data.content;
                 this.summary = data.summary;
+                this.imageUrl = data.imageUrl;
+            },
+
+            handleError(res) {
+                showNotify('上传失败' + res);
+            },
+
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg'
+                const isPNG = file.type === 'image/png'
+                if (!isJPG && !isPNG) {
+                    showNotify('上传图片只能是 JPG/PNG 格式!');
+                }
+                return (isJPG || isPNG)
+            },
+
+            handleAvatarSuccess(res, file) {
+                if (res.key != null) {
+                    this.imageUrl = res.key;
+                }
             },
 
             resetButtonClick() {
@@ -107,8 +139,11 @@
                 let params = {
                     title: this.title,
                     content: this.content,
+                    summary: this.summary,
                     imageUrl: this.imageUrl
                 }
+
+                console.log(params);
                 
                 if (this.type === 'create') {
                     createRequest(params, 'post');
@@ -141,5 +176,60 @@
         cursor: pointer;
         position: relative;
         overflow: hidden;
+    }
+
+    .avatar-uploader {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        margin-right: 5px;
+    }
+
+    .upload-image-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .upload-image-cell {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            min-height: 100px;
+            position: relative;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        display: block;
     }
 </style>

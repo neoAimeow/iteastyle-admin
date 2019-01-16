@@ -24,7 +24,6 @@
                            :on-success="handleAvatarSuccess"
                            :on-error="handleError"
                            :before-upload="beforeAvatarUpload"
-                           :on-progress="uploadOnProgress"
                            :data="uploadParam">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
