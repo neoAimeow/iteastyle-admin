@@ -5,8 +5,8 @@ const qs = require('qs');
 export const qiniu_url = 'http://image.iteastyle.cn/'
 
 export let request = axios.create({
-    // baseURL: 'https://iteastyle-api-test.aimeow.com/',
-    baseURL: 'http://localhost:8080/',
+    baseURL: 'https://iteastyle-api.aimeow.com/',
+    // baseURL: 'http://localhost:8080/',
     timeout: 3000
 });
 
