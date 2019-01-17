@@ -13,7 +13,6 @@ pipeline {
         sh 'npm config set registry https://registry.npm.taobao.org'
         sh 'npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/'
         sh 'npm install'
-        sh 'npm i vue-template-compiler --save-dev'
         sh 'npm run build'
         sh 'sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories'
         sh 'apk add --update --no-cache openssh sshpass'
