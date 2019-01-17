@@ -1,6 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Login from '@/components/login.vue'
+import Home from '@/views/home.vue'
+
+import ClassicalCase from '@/views/site-manager/case/ClassicalCase'
+import UpdateCaseView from '@/views/site-manager/case/UpdateCaseView'
+
+import NewsCenter from '@/views/site-manager/post/NewsCenter'
+import UpdateNewsView from '@/views/site-manager/post/UpdateNewsView'
+
+import UserManager from '@/views/system-preferences/UserManager.vue'
+import UpdateUserView from '@/views/system-preferences/UpdateUserView.vue'
 
 Vue.use(Router)
 
@@ -8,16 +18,48 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'login',
+      component: Login
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/home',
+      name: 'home',
+      component: Home,
+      children: [
+        {
+          path: '/site-manager/classical-case',
+          name: '经典案例',
+          component: ClassicalCase
+        },
+    
+        {
+          path: '/site-manager/classical-case/update-case',
+          name: '修改案例',
+          component: UpdateCaseView
+        },
+        {
+          path: '/site-manager/news-center',
+          name: '新闻中心',
+          component: NewsCenter
+        },
+        {
+          path: '/site-manager/news-center/update-news',
+          name: '修改文章',
+          component: UpdateNewsView
+        },
+
+        {
+          path: '/system-preferences/user-manager',
+          name: '用户管理',
+          component: UserManager
+        },
+        {
+          path: '/system-preferences/user-manager/update-user',
+          name: '修改用户',
+          component: UpdateUserView
+        }
+
+      ]
     }
   ]
 })
