@@ -99,10 +99,11 @@
 
             request() {
                 getDataById(this.id, 'case').then((response)=>{
-                    this.data = response
-                    this.title = response.title
-                    this.imgArr = response.imageArr
-                    this.selectTypeName = response.typeName
+                    this.data = response;
+                    this.title = response.title;
+                    this.imgArr = response.imageArr;
+                    this.selectTypeName = response.typeName;
+                    this.content = response.content;
                 });
             },
 
@@ -132,7 +133,7 @@
 
             handleAvatarSuccess(res, file) {
                 if (res.key != null) {
-                    this.imgArr.push(res.key)
+                    this.imgArr.push('/' + res.key);
                 }
             },
 
@@ -166,7 +167,8 @@
                 let param = {
                     title: this.title,
                     imageArr: this.imgArr,
-                    type: type
+                    type: type,
+                    content: this.content
                 }
 
                 if (this.type === 'update') {

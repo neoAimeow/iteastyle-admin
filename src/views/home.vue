@@ -79,7 +79,7 @@
     body,
     #app {
         width: 100%;
-        height: 100%;
+        height: auto;
         font-family: PingFangSC-Light, helvetica, 'Heiti SC';
         display: flex;
         flex-direction: column;

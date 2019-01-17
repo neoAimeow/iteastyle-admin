@@ -10,15 +10,15 @@ export let request = axios.create({
     timeout: 3000
 });
 
-request.interceptors.request.use((config) => {
-    if (config.method === 'post') {
-        config.data = qs.stringify(config.data)
-        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    }
-    return config;
-}, (error) => {
-    return Promise.reject(error)
-})
+// request.interceptors.request.use((config) => {
+//     if (config.method === 'post') {
+//         config.data = JSON.stringify(config.data)
+//         // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+//     }
+//     return config;
+// }, (error) => {
+//     return Promise.reject(error)
+// })
 
 export function getQiniuToken(TokenCallback) {
     request.get('/upload/getUploadToken', {})
@@ -30,11 +30,9 @@ export function getQiniuToken(TokenCallback) {
 export function createRequest(param, type) {
     console.log(param)
     return new Promise(((resolve, reject) => {
-        request.get('/admin/create', {
-            params: {
-                param: qs.stringify(param),
-                type: type
-            }
+        request.post('/admin/create', {
+            param: JSON.stringify(param),
+            type: type
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
@@ -53,11 +51,9 @@ export function createRequest(param, type) {
 export function updateRequest(param, type) {
     console.log(param);
     return new Promise(((resolve, reject) => {
-        request.get('/admin/update', {
-            params: {
-                param: qs.stringify(param),
-                type: type
-            }
+        request.post('/admin/update', {
+            param: JSON.stringify(param),
+            type: type
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
@@ -75,12 +71,9 @@ export function updateRequest(param, type) {
 
 export function deleteRequest(id, type) {
     return new Promise(((resolve, reject) => {
-        request.get('/admin/delete', {
-            params: {
-                id: id,
-                type: type
-            }
-
+        request.post('/admin/delete', {
+            id: id,
+            type: type
         }).then((response) => {
             if (response.data.success) {
                 resolve(response.data.model);
