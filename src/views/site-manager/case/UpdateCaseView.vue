@@ -181,26 +181,11 @@
 
             imageButtonClick(key) {
                 showAlert('是否删除该图片？').then((value) => {
-                    // let imageArray = this.imgArr;
-                    // this.imgArr = imageArray.splice(key, 1);
+                    this.imgArr.splice(key, 1);
                     showNotify('删除成功');
                 }).catch(() => {
                     showNotify('已取消');
                 })
-                // this.$confirm('是否删除该图片？', '提示', {
-                //     confirmButtonText: '确定',
-                //     cancelButtonText: '取消',
-                //     type: 'info',
-                //     beforeClose: (action, instance, done) => {
-                //         if (action === 'confirm') {
-                 //         }
-                //         done()
-                //     }
-                // }).then(() => {
-                //     showNotify('删除成功');
-                // }).catch(() => {
-                //     showNotify('已取消');
-                // })
             }
 
         }

@@ -13,15 +13,17 @@
             <form class="bottom-container">
 
                 <p class="control has-icon" style="margin-top:30px;width: 70%;">
-                    <input class="input" type="email" placeholder="Email">
+                    <input class="input" v-model="userName" type="text" placeholder="UserName">
                     <i class="fa fa-envelope"></i>
                 </p>
                 <p class="control has-icon" style="width: 70%">
-                    <input class="input" type="password" placeholder="Password">
+                    <input class="input" v-model="password" type="password" placeholder="Password">
                     <i class="fa fa-lock"></i>
                 </p>
                 <p class="control" style="margin-top:10px;width: 70%">
-                    <router-link to="/home"><button class="button is-info" style="margin-top:10px;width: 47%">登录</button></router-link>
+                    <router-link to="/home">
+                        <button class="button is-info" style="margin-top:10px;width: 47%">登录</button>
+                    </router-link>
                     <button class="button is-danger" style="margin-top:10px;width: 47%;margin-left:6%;">忘记密码</button>
                 </p>
             </form>
@@ -30,6 +32,26 @@
 
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                userName: '',
+                password: ''
+            }
+        },
+        methods: {
+            login() {
+                if (this.userName === 'admin' && this.password === 'iteastyle') {
+                    console.log('login success');
+                } else {
+                    console.log('login failed');
+                }
+            }
+        }
+    }
+</script>
 
 <style lang="scss">
     * {

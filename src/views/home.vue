@@ -97,7 +97,7 @@
             flex-direction: column;
             height: 100%;
             min-width: 200px;
-            //min-height:900px;
+            min-height:900px;
             height: auto;
             // max-width: 300px;
             width: 15%;
